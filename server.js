@@ -48,6 +48,18 @@ app.post("/customers", function (request, response) {
     });
 });
 
+app.get("/customers", function (request, response) {
+    Customer.find({}, function (err, customers) {
+        if (err) {
+            console.log("Error: " + err);
+            response.status(500);
+            response.send(err);
+        }
+        else {
+            response.send(customers); // Default Status = 200
+        }
+    });
+});
 
 
 app.get("/countries", function (request, response) {
@@ -60,7 +72,7 @@ app.get('/*', function(req,res) {
 res.sendFile(path.join(__dirname+
 '/dist/balinkhw/index.html'));});
 app.listen(process.env.PORT || 8080,function(){
-    console.log("Listening on http://localhost:8080");
+    //console.log("Listening on http://localhost:8080");
 });;
 
 

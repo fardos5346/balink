@@ -1,0 +1,118 @@
+<div class="row notifyType" style="color: white; background-color: lightgray;" *ngIf="showNotification">
+  <i [ngClass]="error? 'fa fa-times iconToggle fail' : 'fa fa-check-circle iconToggle success'"></i>
+  <span class="col-eleven tab-full" *ngIf="error"  id="notifyType">{{ 'error' | translate  }}
+  </span>
+  <span class="col-eleven tab-full" *ngIf="!error"  id="notifyType">{{ 'success' | translate  }}
+  </span>
+</div>
+<br>
+<div class="langu">
+  <a (click)="switchLang('en')" title="hebrew" style="cursor: pointer;" *ngIf="lang=='he'">{{ 'English' | translate  }}</a>
+  &nbsp;
+  <a (click)="switchLang('he')" title="hebrew" style="cursor: pointer;" *ngIf="lang=='en'">{{ 'Hebrew' | translate  }}</a>
+
+
+</div>
+<div class="page">
+
+<h1> {{ 'welcomeMessage' | translate  }}  </h1>
+
+<mat-horizontal-stepper [linear]="isLinear">
+
+  <mat-step label="{{'Step1' | translate }}" [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <div class="personal">
+        <label for="firstName">{{ 'firstName' | translate  }} </label>
+        <input type="text" formControlName="firstName" id="fname" name="firstname" placeholder="{{'yourName' | translate }}"
+          [ngClass]="{ 'has-error': isSubmitted && formControls.firstName.errors }">
+        <p *ngIf="isSubmitted && formControls.firstName.errors" class="msg_firstName">{{ 'yourNameMissing' | translate  }}</p>
+
+        <label for="lastName">{{ 'lasttName' | translate  }} </label>
+        <input type="text" id="lname" formControlName="lastName" name="lastname" placeholder="{{ 'yourLastName' | translate  }}"
+          [ngClass]="{ 'has-error': isSubmitted && formControls.lastName.errors }">
+        <p class="msg_lastName" *ngIf="isSubmitted && formControls.lastName.errors">{{ 'yourLastNameMissing' | translate  }}</p>
+        <label for="title">{{ 'title' | translate  }}  </label>
+        <input type="text" formControlName="title" id="title" name="title" placeholder="{{ 'yourTitle' | translate  }}"
+          [ngClass]="{ 'has-error': isSubmitted && formControls.title.errors }">
+        <p *ngIf="isSubmitted && formControls.title.errors" class="msg_title">{{ 'yourTitleMissing' | translate  }}</p>
+      </div>
+
+      <div class="center">
+        <button mat-button matStepperNext class="next" (click)="isSubmitted=true;">{{'next' | translate}}</button>
+      </div>
+    </form>
+
+  </mat-step>
+
+  <mat-step label="{{'Step2' | translate }}"  [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <div class="address">
+        <label for="CountryName">{{'countryName' | translate}}</label>
+    
+    
+        <select id="CountryName"  name="select1" class="form-control"
+            formControlName="country">
+                  <option disabled >{{'chooseCountry' | translate}}</option>
+                  <option value={{country.name}} *ngFor="let country of countries">{{country.name}}</option>
+          </select>
+          
+        <p *ngIf="isSubmitted2 && formControls2.country.errors" class="msg_firstName">{{'countryMissing' | translate}} !</p>
+        <label for="cityName">{{'cityName' | translate}} </label>
+        <input type="text" id="cityName" formControlName="city" name="cityName" placeholder="{{'yourCity' | translate}}"
+          [ngClass]="{ 'has-error': isSubmitted2 && formControls2.city.errors }">
+        <p *ngIf="isSubmitted2 && formControls2.city.errors" class="msg_firstName">{{'cityMissing' | translate}} </p>
+        <label for="street">{{'street' | translate}} </label>
+        <input type="text" formControlName="street" id="street" name="street" placeholder="{{'yourStreet' | translate}} "
+          [ngClass]="{ 'has-error': isSubmitted2 && formControls2.street.errors }">
+        <p *ngIf="isSubmitted2 && formControls2.street.errors" class="msg_firstName">{{'streetMissing' | translate}}</p>
+      </div>
+
+      <div class="center">
+
+        <button mat-button matStepperPrevious class="back"> {{'back' | translate}}</button>
+        <button mat-button matStepperNext class="next" (click)="isSubmitted2=true;">{{'next' | translate}}</button>
+
+
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step label="{{'Step3' | translate }}" [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <div class="address">
+        <label for="email">{{'email' | translate}} </label>
+        <input type="text" formControlName="email" id="Email" name="Email" placeholder="{{'yourEmail' | translate}}."
+          [ngClass]="{ 'has-error':isSubmitted3 && formControls3.email.errors }">
+        <p *ngIf="isSubmitted3 && formControls3.email.errors?.required" class="msg_firstName">{{'emailMissing' | translate}}</p>
+        <p *ngIf="isSubmitted3 && formControls3.email.errors?.pattern" class="msg_firstName">{{'invalidEmail' | translate}}</p>
+        <label >{{'phone' | translate}} </label>
+        <input type="text" formControlName="phone" id="phone" name="Phone" placeholder="{{'yourPhone' | translate}}"
+          [ngClass]="{ 'has-error': isSubmitted3 && formControls3.phone.errors }">
+        <p *ngIf="isSubmitted3 && formControls3.phone.errors?.required" class="msg_firstName">{{'phoneMissing' | translate}}</p>
+        <p *ngIf="isSubmitted3 && formControls3.phone.errors?.pattern" class="msg_firstName">{{'invalidPhone' | translate}}</p>
+        <label class="container">{{'terms' | translate}}
+          <input type="checkbox" >
+          
+        </label>
+
+        <input type="submit" value="{{'submit' | translate}}" (click)="isSubmitted3=true;submitForm()">
+
+
+        <div class="center">
+          <button mat-button matStepperPrevious class="back"> {{'back' | translate}}</button>
+        </div>
+
+     
+
+      </div>
+    </form>
+
+
+
+  </mat-step>
+
+</mat-horizontal-stepper>
+</div>
+
+
+
